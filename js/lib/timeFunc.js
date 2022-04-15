@@ -14,6 +14,11 @@ timeFunc = {
         return time;
     },
 
+    addMilliseconds (time, s) {
+        time.setTime(time.getTime() + s);
+        return time;
+    },
+
     getHours(time) {
         let hours;
         if (typeof time !== 'number') {

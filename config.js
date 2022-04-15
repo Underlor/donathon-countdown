@@ -3,34 +3,23 @@ var twitch_channel_name = ""
 var streamlabs_token = ""
 var streamelements_token = ""
 var streamloots_token = ""
+var donationAlertsToken = ""
 
 // Initial Counter Config
 var initialHours = 5
 var initialMinutes = 0
 var initialSeconds = 0
 
-// General Twitch, Streamlabs And StreamElements Config
-var seconds_added_per_sub_prime = 30
-var seconds_added_per_sub_tier1 = 30
-var seconds_added_per_sub_tier2 = 60
-var seconds_added_per_sub_tier3 = 120
+// If this option true - time can be added after reaching "00:00:00", if it false - timer will stop forever after reaching "00:00:00" once
+var canIncreaseTimeAfterStop = false;
 
-var seconds_added_per_resub_prime = 30
-var seconds_added_per_resub_tier1 = 30
-var seconds_added_per_resub_tier2 = 60
-var seconds_added_per_resub_tier3 = 120
+var isTransparentBackground = false;
 
-var seconds_added_per_giftsub_tier1 = 30
-var seconds_added_per_giftsub_tier2 = 60
-var seconds_added_per_giftsub_tier3 = 120
+// Counter controls config (in seconds)
+var timeIncrease = 10 * 60 // 10 min
+var timeDecrease = 10 * 60 // 10 min
 
-var min_amount_of_bits = 500
-var seconds_added_per_bits = 30
-
-// Streamlabs And StreamElements Config
-var min_donation_amount = 5
-var seconds_added_per_donation = 30
-
-// Streamloots Config
-var min_amount_of_chests = 5
-var seconds_added_per_chests = 30
+// Donation alerts
+// This value will be multiplied by donation amount
+// Donation is converted automatically to the MAIN donation alerts account currency
+var secondsAddedPerCurrency = 1 / 10; // 100 rubles (if account store money in rubles) adds 10 sec

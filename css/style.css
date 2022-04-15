@@ -15,6 +15,7 @@ body {
     --background-color: #f7fff7;
     --shadow-color: #00000020;
     --text-color: #292f36;
+    --icon-color: #424850;
 }
 
 
@@ -32,6 +33,7 @@ body {
 }
 
 #textDiv {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -75,4 +77,13 @@ canvas {
     color: var(--background-color);
     text-shadow: 0 0 1.5rem var(--text-color);
     transition: top 1s ease-out, opacity .5s ease-out;
+}
+
+#pauseIcon {
+    position: absolute;
+    top: 75%;
+    border-left:10px solid var(--icon-color);
+    border-right:10px solid var(--icon-color);
+    width: 8px;
+    height: 30px;
 }

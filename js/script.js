@@ -1,21 +1,48 @@
 const timeText = document.getElementById("timeText");
+const pauseIconElement = document.getElementById("pauseIcon");
 
 let endingTime = new Date(Date.now());
-endingTime = timeFunc.addHours(endingTime, initialHours);
-endingTime = timeFunc.addMinutes(endingTime, initialMinutes);
-endingTime = timeFunc.addSeconds(endingTime, initialSeconds);
+let startTime = new Date(Date.now());
+let pauseTime = 0;
+const resetTime = () => {
+    endingTime = new Date(new Date(Date.now()) - pauseTime);
+    endingTime = timeFunc.addHours(endingTime, initialHours);
+    endingTime = timeFunc.addMinutes(endingTime, initialMinutes);
+    endingTime = timeFunc.addSeconds(endingTime, initialSeconds);
+}
+
+resetTime();
+
+if (isTransparentBackground) {
+    document.body.style.backgroundColor = 'transparent';
+}
 
 let countdownEnded = false;
 let users = [];
 let time;
 
+
+let isPause = true;
+
+let prevPauseDate = new Date(Date.now());
+
 const getNextTime = () => {
-    let currentTime = new Date(Date.now());
+    if (isPause && prevPauseDate) {
+        const cur = new Date(Date.now());
+        pauseTime += new Date(Date.now()) - prevPauseDate;
+        prevPauseDate = cur;
+    }
+    let currentTime = new Date(Date.now()) - pauseTime;
     let differenceTime = endingTime - currentTime;
+    // console.log(differenceTime);
     time = `${timeFunc.getHours(differenceTime)}:${timeFunc.getMinutes(differenceTime)}:${timeFunc.getSeconds(differenceTime)}`;
     if (differenceTime <= 0) {
-        clearInterval(countdownUpdater);
-        countdownEnded = true;
+        if (canIncreaseTimeAfterStop) {
+            endingTime = new Date(currentTime);
+        } else {
+            clearInterval(countdownUpdater);
+            countdownEnded = true;
+        }
         time = "00:00:00";
     }
     timeText.innerText = time;
@@ -26,12 +53,33 @@ let countdownUpdater = setInterval(() => {
 }, 100);
 
 
+// const updateStopwatch = (timestamp) => {
+//     // console.log(timeChange);
+//
+//     const timeDifference = prevTimestamp - timestamp;
+//     let differenceTime = isPause ? endingTime.getMilliseconds() : timeFunc.addMilliseconds(endingTime, timeDifference);
+//     // console.log(timeDifference);
+//     time = `${timeFunc.getHours(differenceTime)}:${timeFunc.getMinutes(differenceTime)}:${timeFunc.getSeconds(differenceTime)}`;
+//     if (differenceTime <= 0) {
+//         clearInterval(countdownUpdater);
+//         countdownEnded = true;
+//         time = "00:00:00";
+//     }
+//     timeText.innerText = time;
+//     prevTimestamp = timestamp;
+//
+//     requestAnimationFrame(updateStopwatch);
+// };
+//
+// requestAnimationFrame(updateStopwatch);
+
+
 
 const addTime = async (time, s) => {
     endingTime = timeFunc.addSeconds(time, s);
     let addedTime = document.createElement("p");
     addedTime.classList = "addedTime";
-    addedTime.innerText = `+${s}s`;
+    addedTime.innerText = `${s > 0 ? '+' : ''}${s}s`;
     document.body.appendChild(addedTime);
     addedTime.style.display = "block";
     await sleep(50);
@@ -58,3 +106,27 @@ const testAddTime = (times, delay) => {
         }
     }, delay);
 };
+
+console.log('log');
+
+document.addEventListener("keydown", (e) => {
+    // console.log(e);
+    switch (e.code) {
+        case "ArrowUp":
+            addTime(endingTime, timeIncrease);
+            console.log('key up');
+            return;
+        case "ArrowDown":
+            addTime(endingTime, -timeDecrease);
+            return;
+        case "KeyR":
+            resetTime();
+            return;
+        case "Space":
+            prevPauseDate = isPause ? null : new Date(Date.now());
+            pauseIconElement.style.display = isPause ? "none" : "block";
+            isPause = !isPause;
+
+            return;
+    }
+})

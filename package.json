@@ -1,0 +1,60 @@
+{
+  "name": "twitch-subathon-countdown",
+  "version": "1.0.0",
+  "description": "<h1 align=\"center\">Twitch Subathon Countdown Template</h1> <p align=\"center\">This is the template I created for my Twitch Subathon Countdowns</p> <br/>",
+  "main": "renderer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kozjar/twitch-subathon-countdown.git"
+  },
+  "author": "Kozjar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kozjar/twitch-subathon-countdown"
+  },
+  "homepage": "https://github.com/Kozjar/twitch-subathon-countdown",
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.63",
+    "@electron-forge/maker-deb": "^6.0.0-beta.63",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.63",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
+    "@electron-forge/maker-zip": "^6.0.0-beta.63",
+    "electron": "^18.0.4"
+  },
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "twitch_subathon_countdown"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
+  }
+}

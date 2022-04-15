@@ -14,22 +14,18 @@
 <p>After cloning this repository you'll have to edit the "config.js" file with any plain text editor, then change the value of the variables according to what you want:</p>
 
 <h3>Streamlabs Token</h3>
-<p>To get the token you'll have to go to the API settings tab of your <a href="https://streamlabs.com/dashboard#/settings/api-settings">Streamlabs dashboard</a> then click on API Tokens, copy your socket API token and finally paste the code on the "streamlabs_token" variable in the "config.js" file.</p>
-<img src="./auth_streamlabs.png">
-
-<h3>StreamElements Token</h3>
-<p>To get the token you'll have to go to your <a href="https://streamelements.com/dashboard/account/channels">StreamElements channels dashboard</a>, then click on show secrets, copy the Overlay token and paste the code on the "streamelements_token" variable in the "config.js" file.</p>
-<img src="./auth_streamelements.png">
-
-<h3>Streamloots Token</h3>
-<p>To get the token you'll have to go to your Streamloots creator dashboard, then to alerts & widgets, then go to alerts, then copy the last part of the alerts url and finally paste the code on the "streamloots_token" variable in the "config.js" file.</p>
-<img src="./auth_streamloots.png">
+<p>To get the token you'll have to go to the general settings tab of your <a href="https://www.donationalerts.com/dashboard/general">Donation Alerts dashboard</a> then click Show token and  paste the code on the "donationAlertsToken" variable in the "config.js" file.</p>
+<img src="./auth_donationAlerts.png">
 
 <h3>Initial Time</h3>
 <p>You can set the initial time of the timer by setting the hours, minutes and seconds to be added when the timer is created.</p>
 
-<h3>Other Values</h3>
-<p>Change the other values to set the amount of seconds that will be added for the subscriptions, donations... And the minimum donation amounts to trigger the countdown increase.</p>
-
 <h3>Add To OBS</h3>
-<p>To add it to OBS you just have to drag the "index.html" file to the sources section or add a browser source that points to the "index.html" file.</p>
+<p>To add it to OBS you just have to open application and show it as any regular app.</p>
+
+<h2>Hotkeys</h2>
+
+- "R" - reset time to initial
+- Arrow UP - increase time
+- Arrow DOWN - decrease time
+- Space - pause timer
