@@ -8,7 +8,7 @@
 <br/>
 
 <h2>Preview</h2>
-<h3 align="center"><img width="90%" src="./preview.gif"></h3>
+<h3 align="center"><img width="90%" src="resources/preview.gif"></h3>
 <br/>
 
 <h2>Usage</h2>
@@ -20,7 +20,7 @@ Then you'll have to edit `resources/app/config.js` file (open it with notepad or
 
 <h3>Donation alerts</h3>
 <p>To get the token you'll have to go to the general settings tab of your <a href="https://www.donationalerts.com/dashboard/general">Donation Alerts dashboard</a> then click Show token and  paste the code on the "donationAlertsToken" variable in the "config.js" file.</p>
-<img src="./auth_donationAlerts.png">
+<img src="resources/auth_donationAlerts.png">
 
 <h3>Initial Time</h3>
 <p>You can set the initial time of the timer by setting the hours, minutes and seconds to be added when the timer is created.</p>
@@ -32,7 +32,7 @@ Then you'll have to edit `resources/app/config.js` file (open it with notepad or
 1) Make sure you set `isGreenBackground` to `true` in `config.js`
 2) Select `filters` tab for timer window source
 
-<img src="./transparentBackgroundGuide1.png">
+<img src="resources/transparentBackgroundGuide1.png">
 
 3) Add `Chroma key` filter
 
