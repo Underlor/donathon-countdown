@@ -21,20 +21,21 @@ let countdownEnded = false;
 let users = [];
 let time;
 
-
 let isPause = true;
 
 let prevPauseDate = new Date(Date.now());
 
 const getNextTime = () => {
+    const now = new Date(Date.now());
     if (isPause && prevPauseDate) {
-        const cur = new Date(Date.now());
-        pauseTime += new Date(Date.now()) - prevPauseDate;
+        const cur = now;
+        pauseTime += now - prevPauseDate;
         prevPauseDate = cur;
     }
-    let currentTime = new Date(Date.now()) - pauseTime;
+
+    let currentTime = now - pauseTime;
     let differenceTime = endingTime - currentTime;
-    // console.log(differenceTime);
+
     time = `${timeFunc.getHours(differenceTime)}:${timeFunc.getMinutes(differenceTime)}:${timeFunc.getSeconds(differenceTime)}`;
     if (differenceTime <= 0) {
         if (canIncreaseTimeAfterStop) {
@@ -46,34 +47,11 @@ const getNextTime = () => {
         time = "00:00:00";
     }
     timeText.innerText = time;
+
+    requestAnimationFrame(getNextTime);
 };
 
-let countdownUpdater = setInterval(() => {
-    getNextTime();
-}, 100);
-
-
-// const updateStopwatch = (timestamp) => {
-//     // console.log(timeChange);
-//
-//     const timeDifference = prevTimestamp - timestamp;
-//     let differenceTime = isPause ? endingTime.getMilliseconds() : timeFunc.addMilliseconds(endingTime, timeDifference);
-//     // console.log(timeDifference);
-//     time = `${timeFunc.getHours(differenceTime)}:${timeFunc.getMinutes(differenceTime)}:${timeFunc.getSeconds(differenceTime)}`;
-//     if (differenceTime <= 0) {
-//         clearInterval(countdownUpdater);
-//         countdownEnded = true;
-//         time = "00:00:00";
-//     }
-//     timeText.innerText = time;
-//     prevTimestamp = timestamp;
-//
-//     requestAnimationFrame(updateStopwatch);
-// };
-//
-// requestAnimationFrame(updateStopwatch);
-
-
+requestAnimationFrame(getNextTime);
 
 const addTime = async (time, s) => {
     endingTime = timeFunc.addSeconds(time, s);
