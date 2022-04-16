@@ -1,5 +1,5 @@
 {
-  "name": "twitch-subathon-countdown",
+  "name": "donathon-countdown",
   "version": "1.0.0",
   "description": "<h1 align=\"center\">Twitch Subathon Countdown Template</h1> <p align=\"center\">This is the template I created for my Twitch Subathon Countdowns</p> <br/>",
   "main": "renderer.js",

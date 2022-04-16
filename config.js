@@ -13,9 +13,9 @@ var initialSeconds = 0
 // If this option true - time can be added after reaching "00:00:00", if it false - timer will stop forever after reaching "00:00:00" once
 var canIncreaseTimeAfterStop = false;
 
-var isTransparentBackground = false;
+var isGreenBackground = true;
 
-// Counter controls config (in seconds)
+// Counter controls (in seconds)
 var timeIncrease = 10 * 60 // 10 min
 var timeDecrease = 10 * 60 // 10 min
 

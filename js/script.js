@@ -13,8 +13,8 @@ const resetTime = () => {
 
 resetTime();
 
-if (isTransparentBackground) {
-    document.body.style.backgroundColor = 'transparent';
+if (isGreenBackground) {
+    document.body.style.backgroundColor = '#00ff00';
 }
 
 let countdownEnded = false;
