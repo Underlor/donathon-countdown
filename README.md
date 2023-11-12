@@ -49,7 +49,7 @@ Then you'll have to edit `config.js` file (open it with notepad or any other tex
     You can use it as browser source, but in this case you cant use hotkeys and need to use another webpage to controll the timer
 </p>
 
-1) Setup `server_name` in `config.js` and if you wanna use another server you can setup your own `controllsServer`
+1) Setup `server_name` in `config.js` and if you wanna use another server you can setup your own `controllsServer` and set `multicontrolls = false`
 2) Add `index.html` as browser source in your OBS
 3) Open `controller.html` in your browser, to controll the timer, you can open and close this page anytime and it wont affect the timer.
 
