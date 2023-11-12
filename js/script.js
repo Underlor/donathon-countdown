@@ -4,11 +4,13 @@ const pauseIconElement = document.getElementById("pauseIcon");
 let endingTime = new Date(Date.now());
 let startTime = new Date(Date.now());
 let pauseTime = 0;
+
 const resetTime = () => {
     endingTime = new Date(new Date(Date.now()) - pauseTime);
     endingTime = timeFunc.addHours(endingTime, initialHours);
     endingTime = timeFunc.addMinutes(endingTime, initialMinutes);
     endingTime = timeFunc.addSeconds(endingTime, initialSeconds);
+    localStorage.removeItem('donation-countdown');
 }
 
 resetTime();
@@ -20,10 +22,16 @@ if (isGreenBackground) {
 let countdownEnded = false;
 let users = [];
 let time;
+let lastSavedTime = new Date(Date.now());
 
 let isPause = true;
 
 let prevPauseDate = new Date(Date.now());
+
+var socket = null;
+if(multicontrolls) {
+    socket = io(controllsServer);
+}
 
 const getNextTime = () => {
     const now = new Date(Date.now());
@@ -47,7 +55,18 @@ const getNextTime = () => {
         time = "00:00:00";
     }
     timeText.innerText = time;
-
+    
+    if(multicontrolls && !isPause) {
+        try{
+            if(now - lastSavedTime > 5000) {
+                lastSavedTime = now;
+                socket.emit('saveTime', { name: server_name, time: endingTime });
+            }
+        }
+        catch(err) {
+            console.log(err);
+        }
+    }
     requestAnimationFrame(getNextTime);
 };
 
@@ -68,6 +87,7 @@ const addTime = async (time, s) => {
     addedTime.style.opacity = "0";
     await sleep(500);
     addedTime.remove();
+    socket.emit('saveTime', { name: server_name, time: endingTime });
 };
 
 
@@ -108,3 +128,62 @@ document.addEventListener("keydown", (e) => {
             return;
     }
 })
+
+if(multicontrolls) {
+    socket.on('connect', () => {
+        console.log('connected');
+
+        socket.emit("register", {
+            name: server_name,
+        });    
+        socket.emit('loadTime', { name: server_name});
+
+        socket.on('loadTime', (data) => {
+            console.log('received loadTime ' + data.time);
+            if (data.time) {
+                endingTime = new Date(data.time);
+                lastSavedTime = new Date(Date.now());
+                prevPauseDate = isPause ? null : new Date(Date.now());
+                pauseIconElement.style.display = isPause ? "none" : "block";
+                isPause = !isPause;
+            }
+        });
+
+        socket.on('addTime', (data) => {
+            console.log('received addTime: ' + data.time + 's');
+            addTime(endingTime, data.time);
+        });
+        socket.on('removeTime', (data) => {
+            console.log('received removeTime: ' + data.time + 's');
+            addTime(endingTime, -data.time);
+        });
+        socket.on('resetTime', () => {
+            console.log('received resetTime');
+            resetTime();
+        });
+        socket.on('pause', () => {
+            console.log('received pause');
+            prevPauseDate = isPause ? null : new Date(Date.now());
+            pauseIconElement.style.display = isPause ? "none" : "block";
+            isPause = !isPause;
+        });
+    }
+    );
+}
+// socketServer.on('connection', (socket) => {
+//     console.log('connected');
+//     socketServer.on('addTime', () => {
+//         addTime(endingTime, timeIncrease);
+//     });
+//     socketServer.on('removeTime', () => {
+//         addTime(endingTime, -timeDecrease);
+//     });
+//     socketServer.on('resetTime', () => {
+//         resetTime();
+//     });
+//     socketServer.on('pause', () => {
+//         prevPauseDate = isPause ? null : new Date(Date.now());
+//         pauseIconElement.style.display = isPause ? "none" : "block";
+//         isPause = !isPause;
+//     });
+// });

@@ -1,5 +1,5 @@
 // Login Data
-var twitch_channel_name = ""
+var twitch_channel_name = "orlywhy"
 var streamlabs_token = ""
 var streamelements_token = ""
 var streamloots_token = ""
@@ -19,6 +19,11 @@ var isGreenBackground = true;
 var timeIncrease = 10 * 60 // 10 min
 var timeDecrease = 10 * 60 // 10 min
 
+// true - to use server and another page to controll the timer, it allows you to use multiple devices and obs browser source
+var multicontrolls = true 
+var server_name = "" // unique name for your data on server, could be your twitch channel name and some random numbers like alexue432132
+controllsServer = "https://don-countdown.jeetbot.cc"
+// controllsServer = "http://localhost:5000"
 // Donation alerts
 // This value will be multiplied by donation amount
 // Donation is converted automatically to the MAIN donation alerts account currency

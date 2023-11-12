@@ -14,7 +14,7 @@
 <h2>Usage</h2>
 <p>After downloading latest version, extract it to any place on your computer.</p>
 
-Then you'll have to edit `resources/app/config.js` file (open it with notepad or any other text editor). You can place there your tokens and edit some app settings to fit your needs.
+Then you'll have to edit `config.js` file (open it with notepad or any other text editor). You can place there your tokens and edit some app settings to fit your needs.
 
 <h2 style="color: #ff3f3f">Warning: do not show your tokens on stream</h2>
 
@@ -42,3 +42,15 @@ Then you'll have to edit `resources/app/config.js` file (open it with notepad or
 - Arrow UP - increase time
 - Arrow DOWN - decrease time
 - Space - pause timer
+
+
+<h2>OBS Browser Source </h2>
+<p>
+    You can use it as browser source, but in this case you cant use hotkeys and need to use another webpage to controll the timer
+</p>
+
+1) Setup `server_name` in `config.js` and if you wanna use another server you can setup your own `controllsServer`
+2) Add `index.html` as browser source in your OBS
+3) Open `controller.html` in your browser, to controll the timer, you can open and close this page anytime and it wont affect the timer.
+
+
