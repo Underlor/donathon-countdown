@@ -5,12 +5,16 @@ let endingTime = new Date(Date.now());
 let startTime = new Date(Date.now());
 let pauseTime = 0;
 
+var socket = null;
+if(multicontrolls) {
+    socket = io(controllsServer);
+}
+
 const resetTime = () => {
     endingTime = new Date(new Date(Date.now()) - pauseTime);
     endingTime = timeFunc.addHours(endingTime, initialHours);
     endingTime = timeFunc.addMinutes(endingTime, initialMinutes);
     endingTime = timeFunc.addSeconds(endingTime, initialSeconds);
-    localStorage.removeItem('donation-countdown');
 }
 
 resetTime();
@@ -28,10 +32,7 @@ let isPause = true;
 
 let prevPauseDate = new Date(Date.now());
 
-var socket = null;
-if(multicontrolls) {
-    socket = io(controllsServer);
-}
+
 
 const getNextTime = () => {
     const now = new Date(Date.now());
@@ -74,6 +75,9 @@ requestAnimationFrame(getNextTime);
 
 const addTime = async (time, s) => {
     endingTime = timeFunc.addSeconds(time, s);
+    if(multicontrolls) {
+        socket.emit('saveTime', { name: server_name, time: endingTime });
+    }
     let addedTime = document.createElement("p");
     addedTime.classList = "addedTime";
     addedTime.innerText = `${s > 0 ? '+' : ''}${s}s`;
@@ -87,7 +91,6 @@ const addTime = async (time, s) => {
     addedTime.style.opacity = "0";
     await sleep(500);
     addedTime.remove();
-    socket.emit('saveTime', { name: server_name, time: endingTime });
 };
 
 
@@ -135,17 +138,13 @@ if(multicontrolls) {
 
         socket.emit("register", {
             name: server_name,
-        });    
+        });
         socket.emit('loadTime', { name: server_name});
 
         socket.on('loadTime', (data) => {
             console.log('received loadTime ' + data.time);
             if (data.time) {
                 endingTime = new Date(data.time);
-                lastSavedTime = new Date(Date.now());
-                prevPauseDate = isPause ? null : new Date(Date.now());
-                pauseIconElement.style.display = isPause ? "none" : "block";
-                isPause = !isPause;
             }
         });
 
@@ -160,6 +159,9 @@ if(multicontrolls) {
         socket.on('resetTime', () => {
             console.log('received resetTime');
             resetTime();
+            if(multicontrolls) {
+                socket.emit('saveTime', { name: server_name, time: endingTime });
+            }
         });
         socket.on('pause', () => {
             console.log('received pause');

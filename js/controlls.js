@@ -1,28 +1,3 @@
-
-
-// websocket socket.io
-
-
-// document.addEventListener("keydown", (e) => {
-//     // console.log(e);
-//     switch (e.code) {
-//         case "ArrowUp":
-//             // send websocket message
-//             socket.emit('addTime', { name: twitch_channel_name, time: 200});
-//             return;
-//         case "ArrowDown":
-//             socket.emit('removeTime', { name: twitch_channel_name});
-//             return;
-//         case "KeyR":
-//             socket.emit('resetTime', { name: twitch_channel_name});
-//             return;
-//         case "Space":
-//             socket.emit('pause', { name: twitch_channel_name});
-//             return;
-//     }
-// })
-
-
 new Vue({
     el: '#app',
     data: {
@@ -31,19 +6,20 @@ new Vue({
     },
     methods: {
         addTime: function() {
-            this.socket.emit('addTime', { name: twitch_channel_name, time: parseInt(this.timeInput)});
+            this.socket.emit('addTime', { name: server_name, time: parseInt(this.timeInput)});
         },
         removeTime: function() {
-            this.socket.emit('removeTime', { name: twitch_channel_name, time: parseInt(this.timeInput)});
+            this.socket.emit('removeTime', { name: server_name, time: parseInt(this.timeInput)});
         },
         pauseTimer: function() {
-            this.socket.emit('pause', { name: twitch_channel_name});
+            this.socket.emit('pause', { name: server_name});
         },
         resetTime: function() {
             if (!confirm('Are you sure you want to reset the timer?')) {
                 return;
             }
-            this.socket.emit('resetTime', { name: twitch_channel_name});
+            console.log('resetTime');
+            this.socket.emit('resetTime', { name: server_name});
         }
     },
     // on load

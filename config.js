@@ -1,5 +1,5 @@
 // Login Data
-var twitch_channel_name = "orlywhy"
+var twitch_channel_name = ""
 var streamlabs_token = ""
 var streamelements_token = ""
 var streamloots_token = ""
@@ -21,7 +21,7 @@ var timeDecrease = 10 * 60 // 10 min
 
 // true - to use server and another page to controll the timer, it allows you to use multiple devices and obs browser source
 var multicontrolls = false 
-var server_name = "" // unique name for your data on server, could be your twitch channel name and some random numbers like alexue432132
+var server_name = "tester123" // unique name for your data on server, could be your twitch channel name and some random numbers like alexue432132
 controllsServer = "https://don-countdown.jeetbot.cc"
 // controllsServer = "http://localhost:5000"
 // Donation alerts
