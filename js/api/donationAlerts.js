@@ -23,6 +23,10 @@ if (donationAlertsToken !== "") {
     donationalerts.on("donation", (donate) => {
         donate = JSON.parse(donate);
         console.log(donate);
+
+        if(donate.billing_system === "TWITCH"){
+                return;
+        }
         const { amount_main } = donate;
 
         addTime(endingTime, amount_main * secondsAddedPerCurrency)
